@@ -1,0 +1,76 @@
+#include <stdio.h>
+#include <math.h>
+
+// Function to check prime number
+int isPrime(int num) {
+    if (num < 2) return 0;
+    for (int i = 2; i <= sqrt(num); i++)
+        if (num % i == 0) return 0;
+    return 1;
+}
+
+// Function to check perfect number
+int isPerfect(int num) {
+    int sum = 0;
+    for (int i = 1; i < num; i++)
+        if (num % i == 0) sum += i;
+    return sum == num;
+}
+
+// Function to check Armstrong number
+int isArmstrong(int num) {
+    int original = num, sum = 0, digits = 0;
+    while (num > 0) {
+        digits++;
+        num /= 10;
+    }
+    num = original;
+    while (num > 0) {
+        int digit = num % 10;
+        sum += pow(digit, digits);
+        num /= 10;
+    }
+    return sum == original;
+}
+
+int main() {
+    int n, choice;
+    printf("Enter the number of natural numbers: ");
+    scanf("%d", &n);
+
+    int numbers[n];
+    printf("Enter %d natural numbers:\n", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &numbers[i]);
+    }
+
+    printf("\nChoose an option:\n");
+    printf("1. Print Prime Numbers\n");
+    printf("2. Print Perfect Numbers\n");
+    printf("3. Print Armstrong Numbers\n");
+    printf("Enter your choice (1-3): ");
+    scanf("%d", &choice);
+
+    printf("\nResult:\n");
+    switch (choice) {
+        case 1:
+            for (int i = 0; i < n; i++)
+                if (isPrime(numbers[i]))
+                    printf("%d ", numbers[i]);
+            break;
+        case 2:
+            for (int i = 0; i < n; i++)
+                if (isPerfect(numbers[i]))
+                    printf("%d ", numbers[i]);
+            break;
+        case 3:
+            for (int i = 0; i < n; i++)
+                if (isArmstrong(numbers[i]))
+                    printf("%d ", numbers[i]);
+            break;
+        default:
+            printf("Invalid choice.\n");
+    }
+
+    return 0;
+}
